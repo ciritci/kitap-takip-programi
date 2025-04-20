@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Kitaplarım</title>
+  <style>
+    body { background: #eee; padding: 20px; font-family: sans-serif; }
+    input, button { padding: 10px; margin: 5px; }
+    .liste p { background: white; padding: 10px; margin: 5px 0; border-left: 4px solid green; }
+  </style>
+</head>
+<body>
+  <h2>Kitaplar</h2>
+  <input id="kitap" placeholder="kitap">
+  <input id="yazar" placeholder="yazar">
+  <button onclick="ekle()">Ekle</button>
+
+  <div class="liste"></div>
+
+  <script>
+    var veriler = [];
+
+    function ekle() {
+      var k = document.getElementById("kitap").value;
+      var y = document.getElementById("yazar").value;
+
+      if (k && y) {
+        veriler.push({k: k, y: y});
+        document.getElementById("kitap").value = "";
+        document.getElementById("yazar").value = "";
+        goster();
+      }
+    }
+
+    function sil(sira) {
+      veriler[sira] = null;
+      goster();
+    }
+
+    function goster() {
+      var sonuc = "";
+      for (var i = 0; i < veriler.length; i++) {
+        if (veriler[i]) {
+          sonuc += "<p>" + veriler[i].k + " - " + veriler[i].y +
+                   " <button onclick='sil(" + i + ")'>sil</button></p>";
+        }
+      }
+      document.getElementsByClassName("liste")[0].innerHTML = sonuc;
+    }
+  </script>
+</body>
+</html>
